@@ -1,24 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const solveRoomButton = document.getElementById("solveRoom");
-    const resultRoom1Element = document.getElementById("resultRoom1");
-
-    // Check if the elements are correctly referenced
-    if (!solveRoomButton) {
-        console.error("Element with ID 'solveRoom' not found.");
-        return;
-    }
-
-    if (!resultRoom1Element) {
-        console.error("Element with ID 'resultRoom1' not found.");
-        return;
-    }
-
-    solveRoomButton.addEventListener("click", () => {
-        fetch('books.json') 
-            .then(response => response.json())
-            .then(books => {
-                const mostRecentBook = findMostRecentBook(books);
-                resultRoom1Element.textContent = `The key to the next room is: ${mostRecentBook.title}`;
-            });
-    });
-});
+function findMostRecentBook(books) {
+    return books.reduce((mostRecent, book) => new Date(book.published) > new Date(mostRecent.published) ? book : mostRecent);
+}
